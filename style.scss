@@ -1,0 +1,323 @@
+$body-text: #A0A0A0;
+$nav-text: white;
+$header-text: black;
+
+@mixin d-flex($orient: row, $wrap: wrap, $justify: flex-start, $align: flex-start) {
+  display: flex;
+  flex-flow: $orient $wrap;
+  justify-content: $justify;
+  align-items: $align;
+}
+
+@mixin p-reset {
+  padding: 0;
+};
+
+@mixin m-reset {
+  margin: 0;
+}
+
+@mixin box-reset() {
+  @include m-reset();
+  @include p-reset();
+}
+
+* {
+  box-sizing: border-box;
+  font-family: 'Spartan', sans-serif;
+  color: $body-text;
+  line-height: 20px;
+  letter-spacing: 0.25px;
+}
+
+body {
+  @include box-reset;
+}
+
+h1,
+h2,
+a {
+  color: $header-text;
+  text-decoration: none;
+  line-height: 1.2;
+}
+
+h1 {
+  font-weight: 600;
+}
+
+h2 {
+  font-weight: 700;
+}
+
+p {
+  font-weight: 500;
+  font-size: 12px;
+}
+
+.row {
+  @include d-flex(row, nowrap);
+  width: 100%;
+}
+
+.col {
+  @include d-flex(column, nowrap);
+}
+
+.mobile {
+  display: none;
+}
+
+.main {
+  width: 100%;
+  height: 70vh;
+
+  &__hero {
+    width: 55%;
+    height: 100%;
+    padding: 64px;
+    background: linear-gradient(to right, #0005 0%, #0005 100%), url('./images/desktop-image-hero-1.jpg');
+    background-size: cover;
+    background-position: center;
+
+    &__nav {
+      width: 100%;
+      align-items: center;
+
+      &.logo {
+        height: 14px;
+        width: 62px;
+        margin-right: 56px;
+      }
+      &__links {
+        @include d-flex(row, nowrap, flex-start, flex-start);
+        &--item {
+          @include d-flex(column, nowrap, flex-start, center);
+          margin-right: 32px;
+          color: white;
+          font-size: 12px;
+  
+          &::after {
+            content: "";
+            height: 2px;
+            width: 100%;
+            background-color: white;
+            transform: scaleX(0);
+            transition: 0.2s;
+          }
+  
+          &:hover {
+            &::after {
+              transform: scaleX(0.8);
+            }
+          }
+        }
+      }
+
+    }
+  }
+
+  &__tagline {
+    @include d-flex(column, nowrap, space-evenly, flex-start);
+    width: 45%;
+    height: 100%;
+    padding: 100px;
+
+    &__shoplink{
+
+    * {
+      letter-spacing: 10px;
+      font-size: 14px;
+      text-transform: uppercase;
+      margin-right: 32px;
+      transition: 0.2s;
+    }
+
+    &:hover {
+      img {
+        transform: translate(20px);
+      }
+    }
+    }
+
+    &__arrows {
+      position: absolute;
+      top: calc(70vh - 80px);
+      left: calc(55%);
+      width: 160px;
+      &--next, 
+      &--previous {
+        @include d-flex(row, nowrap, center, center);
+        height: 80px;
+        width: 80px;
+        background-color: black;
+        user-select: none;
+        cursor: pointer;
+        transition: 0.2s;
+
+        &:hover {
+          background-color: #444;
+        }
+      }
+    }
+  }
+}
+
+.bottom {
+  width: 100%;
+  height: 30vh;
+
+  &__image {
+    height: 30vh;
+    width: 25%;
+    overflow: hidden;
+
+    img {
+      height: 120%;
+      width: auto;
+      object-fit: cover;
+      object-position: right;
+      transform: translateX(-10%);
+    }
+  }
+
+  &__about {
+    @include d-flex(column, nowrap, center, flex-start);
+    height: 100%;
+    width: 50%;
+    padding: 0 48px;
+  }
+}
+
+@media only screen and (max-width:1100px) {
+  .main {
+    &__tagline {
+      @include d-flex(column, nowrap, center, flex-start);
+      padding: 30px;
+    }
+  }
+}
+
+@media only screen and (max-width:800px) {
+  .row {
+    @include d-flex(column, nowrap, flex-start, flex-start);
+  }
+
+  .main,
+  .bottom {
+    height: auto;
+  }
+
+  .main{
+    > * {
+      width: 100%;
+    }
+    &__hero {
+      height: 400px;
+      background-position: left;
+      padding: 50px 35px;
+
+      &__nav {
+        @include d-flex(row, nowrap, space-between, center);
+
+        &.logo {
+          @include box-reset;
+        }
+
+        &.open-menu {
+          width: 20px;
+          height: 14px;
+          cursor: pointer;
+        }
+
+        &__links {
+          //display: none;
+          height: 0;
+          width: 0;
+          z-index: -1;
+          opacity:0;
+          transition: 0.2s;
+          position: absolute;
+          top: 0;
+          left: 0;
+
+          * {
+            cursor: pointer;
+          }
+
+
+          img {
+            height: 16px;
+            width: 16px;
+            margin-right: 32px;
+          }
+
+          &.menu-open {
+            padding: 50px 35px;
+            position: absolute;
+            @include d-flex(row, nowrap, flex-start, flex-start);
+            width: 100%;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            right: auto;
+            bottom: auto;
+            height: 10px;
+            background-color: white;
+            opacity: 1;
+            transition: 0.2s;
+            * {
+              color: black;
+            }
+          }
+        }
+
+      }
+    }
+
+    &__tagline {
+      height: auto;
+
+      > *{ 
+        margin: 20px 0;
+      }
+
+      &__shoplink {
+        @include d-flex(row, nowrap, flex-start, center);
+      }
+
+      &__arrows {
+        @include d-flex(row, nowrap);
+        position: absolute;
+        left: auto;
+        bottom: auto;
+        right: 0;
+        top: 330px;
+        width: 100px;
+        height: 50px;
+        > * {
+          width: 50px;
+          height: 50px;
+        }
+      }
+    }
+  }
+
+  .bottom {
+    > * {
+      width: 100%;
+      height: auto;
+      margin: 20px 0;
+    }
+    &__image {
+
+      img {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+        object-position: center;
+        transform: none;
+      }
+    }
+  }
+}
