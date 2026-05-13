@@ -1,6 +1,7 @@
 $body-text: #A0A0A0;
 $nav-text: white;
 $header-text: black;
+// Test
 
 @mixin d-flex($orient: row, $wrap: wrap, $justify: flex-start, $align: flex-start) {
   display: flex;
@@ -99,7 +100,7 @@ p {
           margin-right: 32px;
           color: white;
           font-size: 12px;
-  
+
           &::after {
             content: "";
             height: 2px;
@@ -108,7 +109,7 @@ p {
             transform: scaleX(0);
             transition: 0.2s;
           }
-  
+
           &:hover {
             &::after {
               transform: scaleX(0.8);
@@ -148,7 +149,7 @@ p {
       top: calc(70vh - 80px);
       left: calc(55%);
       width: 160px;
-      &--next, 
+      &--next,
       &--previous {
         @include d-flex(row, nowrap, center, center);
         height: 80px;
@@ -281,7 +282,7 @@ p {
     &__tagline {
       height: auto;
 
-      > *{ 
+      > *{
         margin: 20px 0;
       }
 
